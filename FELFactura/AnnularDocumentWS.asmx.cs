@@ -36,7 +36,7 @@ namespace FELFactura
 
                 
                 //SE ENVIA DATOS PARA QUE ARME LA ESTRUCTURA DE XML
-                String xmlDoc = xml.getXML(XMLInvoice, path, fac_num);
+                String xmlDoc = xml.getXML(XMLInvoice,fac_num);
             
                 //SE ENVIA XML PARA REGISTRAR DOCUMENTO
                 XmlDocument register = ws.annularDte(token, xmlDoc);

@@ -16,10 +16,9 @@ namespace FELFactura
         private Anular anular = new Anular();
         string v_rootxml = "";
         string fac_num = "";
-        public String getXML(string XMLCancel, string path, string fac_num)
+        public String getXML(string XMLCancel, string fac_num)
         {
 
-            v_rootxml = path;
             this.fac_num = fac_num;
             //convertir a dataset los string para mayor manupulacion
             XmlToDataSet(XMLCancel);

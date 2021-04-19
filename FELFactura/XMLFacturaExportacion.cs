@@ -1,4 +1,4 @@
-﻿using Modelos;
+﻿    using Modelos;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -19,10 +19,8 @@ namespace FELFactura
         private Totales totales = new Totales();
         string v_rootxml = "";
         string fac_num = "";
-        public String getXML(string XMLInvoice, string XMLDetailInvoce, string path, string fac_num)
+        public String getXML(string XMLInvoice, string XMLDetailInvoce,string fac_num)
         {
-
-            v_rootxml = path;
             this.fac_num = fac_num;
             //convertir a dataset los string para mayor manupulacion
             XmlToDataSet(XMLInvoice, XMLDetailInvoce);
@@ -79,7 +77,8 @@ namespace FELFactura
         {
             Boolean exenta = false;
             XNamespace dte = XNamespace.Get("http://www.sat.gob.gt/dte/fel/0.2.0");
-            XNamespace xd = XNamespace.Get("http://www.w3.org/2000/09/xmldsig#");
+            XNamespace ds = XNamespace.Get("http://www.w3.org/2000/09/xmldsig#");
+            XNamespace cno = XNamespace.Get("http://www.sat.gob.gt/face2/ComplementoReferenciaNota/0.1.0");
             XNamespace ns = XNamespace.Get("http://www.sat.gob.gt/face2/ComplementoExportaciones/0.1.0");
             XNamespace xsi = XNamespace.Get("http://www.w3.org/2001/XMLSchema-instance");
             XNamespace cfc = XNamespace.Get("http://www.sat.gob.gt/dte/fel/CompCambiaria/0.1.0");
@@ -90,8 +89,12 @@ namespace FELFactura
 
             //GTDocumento
             XElement parameters = new XElement(dte + "GTDocumento",
-                            new XAttribute(XNamespace.Xmlns + "dte", dte.NamespaceName),
-                           new XAttribute(XNamespace.Xmlns + "xd", xd.NamespaceName),
+                           new XAttribute(XNamespace.Xmlns + "ds", ds.NamespaceName),
+                           new XAttribute(XNamespace.Xmlns + "cfc", cfc.NamespaceName),
+                           new XAttribute(XNamespace.Xmlns + "cno", cno.NamespaceName),
+                           new XAttribute(XNamespace.Xmlns + "cex", cex.NamespaceName),
+                           new XAttribute(XNamespace.Xmlns + "xsi", xsi.NamespaceName),
+                           new XAttribute(XNamespace.Xmlns + "dte", dte.NamespaceName),
                            new XAttribute("Version", "0.1"));
             //SAT
             XElement SAT = new XElement(dte + "SAT", new XAttribute("ClaseDocumento", "dte"));

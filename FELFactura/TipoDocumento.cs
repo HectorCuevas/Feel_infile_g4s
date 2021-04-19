@@ -17,14 +17,21 @@ namespace FELFactura
                 var tipo = reader["exportacion"];
                 if (tipo != null)
                 {
-                    if (tipo.ToString() == "SI")
+                    if (tipo.ToString().ToLower() == "si")
                     {
-                        Constants.isEXP = true;
-                        Constants.TIPO_EXPO = "SI";
+                        Constants.TIPO_EXPO = true;
                     }
                 }
                 else {
-                    Constants.TIPO_EXPO = "NO";
+                    Constants.TIPO_EXPO = false;
+                }
+
+                var tipodoc = reader["tipo"];
+                if (tipodoc != null)
+                {
+
+                    Constants.TIPO_DOCUMENTO = tipodoc.ToString();
+
                 }
 
             }

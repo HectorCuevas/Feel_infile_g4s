@@ -36,22 +36,15 @@ namespace FELFactura
         public const String METODO_SOLICITUD_FIRMA = "sign_solicitud_firmas/firma_xml";
 
         //PARA EPIDAURO
-        public static String ALIAS = ConfigurationManager.AppSettings["USUARIO"].ToString();
-        public static String ES_ANULACION = "N";
-        public static String LLAVE_TOKEN = ConfigurationManager.AppSettings["LLAVE_TOKEN"].ToString();
-        public static String NIT_EMISOR = ConfigurationManager.AppSettings["NIT_EMISOR"].ToString();
-        public static String CORREO_COPIA = ConfigurationManager.AppSettings["CORREO"].ToString();
-        //
-        public static String HEADER_USUARIO_TOKEN = ConfigurationManager.AppSettings["USUARIO"].ToString();
-        public static String HEADER_LLAVE_EMISOR = ConfigurationManager.AppSettings["LLAVE_EMISOR"].ToString();
-        public const String HEADER_IDENTIFICADOR_TOKEN = "NDEBEXC2";
+
 
         public static String NUMERO_ACCESO = "";
         public static String TIPO_DOC = "";
+        public static string TIPO_DOCUMENTO = "";
         public static String RECEPTOR = "";
         public static String PAGO = "";
         public static String VENDEDOR = "";
-        public static String TIPO_EXPO = "";
+        public static bool TIPO_EXPO = false;
         public static bool isNCREGFACE = false;
         public static bool EXENTA = false;
         #endregion

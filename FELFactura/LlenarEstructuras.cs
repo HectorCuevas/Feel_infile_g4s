@@ -70,7 +70,22 @@ namespace FELFactura
                 }               
             }
         }
-
+        public static void Frases(DataSet xmlFrases, Frases frases)
+        {
+            foreach (DataRow reader in xmlFrases.Tables[0].Rows)
+            {
+                var codigoEscenario = reader["codigoescenario"];
+                if (codigoEscenario != null)
+                {
+                    frases.codigoescenario = codigoEscenario.ToString();
+                }
+                var tipofrase = reader["tipofrase"];
+                if (tipofrase != null)
+                {
+                    frases.tipofrase = tipofrase.ToString();
+                }
+            }
+        }
         public static void Totales(DataSet dstcompanyxml, Totales totales,List<Item>lst)
         {
 

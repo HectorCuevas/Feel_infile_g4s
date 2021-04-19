@@ -91,7 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AnnularDocumentWS.asmx" />
-    <Content Include="solicitud.asmx" />
+    <Content Include="getDocument.asmx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -103,6 +103,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Constants.cs" />
+    <Compile Include="getDocument.asmx.cs">
+      <DependentUpon>getDocument.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="INoteRegister.cs" />
     <Compile Include="LlenarEstructuras.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,11 +115,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="solicitud.asmx.cs">
-      <DependentUpon>solicitud.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="TipoDocumento.cs" />
+    <Compile Include="Web References\wsg4s\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="wsConnector.cs" />
+    <Compile Include="XML.cs" />
     <Compile Include="XMLAnular.cs" />
     <Compile Include="XMLFactura.cs" />
     <Compile Include="XMLFacturaEspecial.cs" />
@@ -131,6 +138,14 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Web References\wsg4s\factwsfront.wsdl" />
+    <Content Include="Web References\wsg4s\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <Content Include="Web References\wsg4s\TransactionTag.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -146,6 +161,22 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://pruebasfel.g4sdocumenta.com/webservicefront/factwsfront.asmx%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\wsg4s\</RelPath>
+      <UpdateFromURL>https://pruebasfel.g4sdocumenta.com/webservicefront/factwsfront.asmx%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>FELFactura_wsg4s_FactWSFront</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

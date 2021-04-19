@@ -9,6 +9,6 @@ namespace FELFactura
     public interface IDocumentRegister
     {
 
-        String getXML(string XMLInvoice, string XMLDetailInvoce, string path, string fac_num);
+        String getXML(string XMLInvoice, string XMLDetailInvoce, string fac_num);
     }
 }

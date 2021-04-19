@@ -31,5 +31,15 @@ namespace FELFactura.Properties {
                 return ((string)(this["RutaArchivos"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://pruebasfel.g4sdocumenta.com/webservicefront/factwsfront.asmx")]
+        public string FELFactura_wsg4s_FactWSFront {
+            get {
+                return ((string)(this["FELFactura_wsg4s_FactWSFront"]));
+            }
+        }
     }
 }

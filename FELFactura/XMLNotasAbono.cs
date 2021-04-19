@@ -1,13 +1,8 @@
-﻿using System;
+﻿using Modelos;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Xml;
-
-using System.Xml.Linq;
-using System.IO;
 using System.Data;
-using Modelos;
+using System.Xml.Linq;
 
 namespace FELFactura
 {
@@ -24,10 +19,9 @@ namespace FELFactura
         private Totales totales = new Totales();
         string v_rootxml = "";
         string fac_num = "";
-        public String getXML(string XMLInvoice, string XMLDetailInvoce, string path, string fac_num)
+        public String getXML(string XMLInvoice, string XMLDetailInvoce, string fac_num)
         {
 
-            v_rootxml = path;
             this.fac_num = fac_num;
             //convertir a dataset los string para mayor manupulacion
             XmlToDataSet(XMLInvoice, XMLDetailInvoce);
@@ -82,16 +76,24 @@ namespace FELFactura
         private String getXML()
         {
             XNamespace dte = XNamespace.Get("http://www.sat.gob.gt/dte/fel/0.2.0");
-            XNamespace xd = XNamespace.Get("http://www.w3.org/2000/09/xmldsig#");
+            XNamespace cfc = XNamespace.Get("http://www.sat.gob.gt/dte/fel/CompCambiaria/0.1.0");
             XNamespace cno = XNamespace.Get("http://www.sat.gob.gt/face2/ComplementoReferenciaNota/0.1.0");
+            XNamespace ds = XNamespace.Get("http://www.w3.org/2000/09/xmldsig#");
+            XNamespace cfe = XNamespace.Get("http://www.sat.gob.gt/face2/ComplementoFacturaEspecial/0.1.0");
+            XNamespace cex = XNamespace.Get("http://www.sat.gob.gt/face2/ComplementoExportaciones/0.1.0");
+            XNamespace xsi = XNamespace.Get("http://www.w3.org/2001/XMLSchema-instance");
             //Encabezado del Documento
             XDeclaration declaracion = new XDeclaration("1.0", "utf-8", "no");
 
             //GTDocumento
             XElement parameters = new XElement(dte + "GTDocumento",
+                            new XAttribute(XNamespace.Xmlns + "ds", ds.NamespaceName),
+                            new XAttribute(XNamespace.Xmlns + "cfc", cfc.NamespaceName),
+                            new XAttribute(XNamespace.Xmlns + "cno", cno.NamespaceName),
+                            new XAttribute(XNamespace.Xmlns + "cex", cex.NamespaceName),
+                            new XAttribute(XNamespace.Xmlns + "xsi", xsi.NamespaceName),
                             new XAttribute(XNamespace.Xmlns + "dte", dte.NamespaceName),
-                           new XAttribute(XNamespace.Xmlns + "xd", xd.NamespaceName),
-                           new XAttribute("Version", "0.1"));
+                            new XAttribute("Version", "0.1"));
             //SAT
             XElement SAT = new XElement(dte + "SAT", new XAttribute("ClaseDocumento", "dte"));
             parameters.Add(SAT);
@@ -105,25 +107,25 @@ namespace FELFactura
             DTE.Add(DatosEmision);
 
             //datos generales
-            XElement DatosGenerales = new XElement(dte + "DatosGenerales", new XAttribute("CodigoMoneda", this.datosGenerales.CodigoMoneda),
-                 new XAttribute("FechaHoraEmision", this.datosGenerales.FechaHoraEmision), new XAttribute("Tipo", this.datosGenerales.Tipo));
+            XElement DatosGenerales = new XElement(dte + "DatosGenerales", new XAttribute("CodigoMoneda", datosGenerales.CodigoMoneda),
+                 new XAttribute("FechaHoraEmision", datosGenerales.FechaHoraEmision), new XAttribute("Tipo", datosGenerales.Tipo));
             DatosEmision.Add(DatosGenerales);
 
             //datos emisor
-            XElement Emisor = new XElement(dte + "Emisor", new XAttribute("AfiliacionIVA", this.emisor.AfiliacionIVA),
-                new XAttribute("CodigoEstablecimiento", this.emisor.CodigoEstablecimiento),
-                new XAttribute("CorreoEmisor", this.emisor.CorreoEmisor), new XAttribute("NITEmisor", this.emisor.NITEmisor),
-                new XAttribute("NombreComercial", this.emisor.NombreComercial), new XAttribute("NombreEmisor", this.emisor.NombreEmisor));
+            XElement Emisor = new XElement(dte + "Emisor", new XAttribute("AfiliacionIVA", emisor.AfiliacionIVA),
+                new XAttribute("CodigoEstablecimiento", emisor.CodigoEstablecimiento),
+                new XAttribute("CorreoEmisor", emisor.CorreoEmisor), new XAttribute("NITEmisor", emisor.NITEmisor),
+                new XAttribute("NombreComercial", emisor.NombreComercial), new XAttribute("NombreEmisor", emisor.NombreEmisor));
             DatosEmision.Add(Emisor);
             //direccion del emisor
             XElement DireccionEmisor = new XElement(dte + "DireccionEmisor");
             Emisor.Add(DireccionEmisor);
             //elementos dentro de direccion de emisor, dirección, codigopostal, municipio, departamento, pais
-            XElement Direccion = new XElement(dte + "Direccion", this.emisor.Direccion);
-            XElement CodigoPostal = new XElement(dte + "CodigoPostal", this.emisor.CodigoPostal);
-            XElement Municipio = new XElement(dte + "Municipio", this.emisor.Municipio);
-            XElement Departamento = new XElement(dte + "Departamento", this.emisor.Departamento);
-            XElement Pais = new XElement(dte + "Pais", this.emisor.Pais);
+            XElement Direccion = new XElement(dte + "Direccion", emisor.Direccion);
+            XElement CodigoPostal = new XElement(dte + "CodigoPostal", emisor.CodigoPostal);
+            XElement Municipio = new XElement(dte + "Municipio", emisor.Municipio);
+            XElement Departamento = new XElement(dte + "Departamento", emisor.Departamento);
+            XElement Pais = new XElement(dte + "Pais", emisor.Pais);
             DireccionEmisor.Add(Direccion);
             DireccionEmisor.Add(CodigoPostal);
             DireccionEmisor.Add(Municipio);
@@ -131,19 +133,19 @@ namespace FELFactura
             DireccionEmisor.Add(Pais);
 
             //datos Receptor
-            XElement Receptor = new XElement(dte + "Receptor", new XAttribute("CorreoReceptor", this.receptor.CorreoReceptor),
-                new XAttribute("IDReceptor", this.receptor.IDReceptor),
-                new XAttribute("NombreReceptor", this.receptor.NombreReceptor));
+            XElement Receptor = new XElement(dte + "Receptor", new XAttribute("CorreoReceptor", receptor.CorreoReceptor),
+                new XAttribute("IDReceptor", receptor.IDReceptor),
+                new XAttribute("NombreReceptor", receptor.NombreReceptor));
             DatosEmision.Add(Receptor);
             //direccion del receptor
             XElement DireccionReceptor = new XElement(dte + "DireccionReceptor");
             Receptor.Add(DireccionReceptor);
             //elementos dentro de direccion de emisor, dirección, codigopostal, municipio, departamento, pais
-            XElement DireccionRecp = new XElement(dte + "Direccion", this.receptor.Direccion);
-            XElement CodigoPostalReceptor = new XElement(dte + "CodigoPostal", this.receptor.CodigoPostal);
-            XElement MunicipioReceptor = new XElement(dte + "Municipio", this.receptor.Municipio);
-            XElement DepartamentoReceptor = new XElement(dte + "Departamento", this.receptor.Departamento);
-            XElement PaisReceptor = new XElement(dte + "Pais", this.receptor.Pais);
+            XElement DireccionRecp = new XElement(dte + "Direccion", receptor.Direccion);
+            XElement CodigoPostalReceptor = new XElement(dte + "CodigoPostal", receptor.CodigoPostal);
+            XElement MunicipioReceptor = new XElement(dte + "Municipio", receptor.Municipio);
+            XElement DepartamentoReceptor = new XElement(dte + "Departamento", receptor.Departamento);
+            XElement PaisReceptor = new XElement(dte + "Pais", receptor.Pais);
             DireccionReceptor.Add(DireccionRecp);
             DireccionReceptor.Add(CodigoPostalReceptor);
             DireccionReceptor.Add(MunicipioReceptor);
@@ -152,9 +154,9 @@ namespace FELFactura
             // detalle de factura 
             XElement Items = new XElement(dte + "Items");
             DatosEmision.Add(Items);
-            if (this.items != null)
+            if (items != null)
             {
-                foreach (Item item in this.items)
+                foreach (Item item in items)
                 {
 
                     //item
@@ -189,25 +191,25 @@ namespace FELFactura
 
             //Complementos
 
-        /*    XElement Complementos = new XElement(dte + "Complementos");
-            DatosEmision.Add(Complementos);
+            /*    XElement Complementos = new XElement(dte + "Complementos");
+                DatosEmision.Add(Complementos);
 
-            XElement Complemento = new XElement(dte + "Complemento",
-                 new XAttribute("NombreComplemento", "NOTA DE CREDITO"),
-                 new XAttribute("IDComplemento", "ReferenciasNota"),
-                 new XAttribute("URIComplemento", "http://www.sat.gob.gt/face2/ComplementoReferenciaNota/0.1.0"));
-            Complementos.Add(Complemento);
+                XElement Complemento = new XElement(dte + "Complemento",
+                     new XAttribute("NombreComplemento", "NOTA DE CREDITO"),
+                     new XAttribute("IDComplemento", "ReferenciasNota"),
+                     new XAttribute("URIComplemento", "http://www.sat.gob.gt/face2/ComplementoReferenciaNota/0.1.0"));
+                Complementos.Add(Complemento);
 
-            XElement Referencias = new XElement(cno + "ReferenciasNota"
-                , new XAttribute(XNamespace.Xmlns + "cno", cno)
-                , new XAttribute("FechaEmisionDocumentoOrigen", nota.FechaEmisionDocumentoOrigen)
-                , new XAttribute("MotivoAjuste", nota.MotivoAjuste)
-                , new XAttribute("NumeroAutorizacionDocumentoOrigen", nota.NumeroAutorizacionDocumentoOrigen)
-                , new XAttribute("SerieDocumentoOrigen", nota.SerieDocumentoOrigen)
-                , new XAttribute("Version", "0")
+                XElement Referencias = new XElement(cno + "ReferenciasNota"
+                    , new XAttribute(XNamespace.Xmlns + "cno", cno)
+                    , new XAttribute("FechaEmisionDocumentoOrigen", nota.FechaEmisionDocumentoOrigen)
+                    , new XAttribute("MotivoAjuste", nota.MotivoAjuste)
+                    , new XAttribute("NumeroAutorizacionDocumentoOrigen", nota.NumeroAutorizacionDocumentoOrigen)
+                    , new XAttribute("SerieDocumentoOrigen", nota.SerieDocumentoOrigen)
+                    , new XAttribute("Version", "0")
 
-                );
-            Complemento.Add(Referencias);*/
+                    );
+                Complemento.Add(Referencias);*/
 
             XDocument myXML = new XDocument(declaracion, parameters);
             String res = myXML.ToString();

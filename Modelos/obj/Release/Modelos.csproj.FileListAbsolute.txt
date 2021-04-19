@@ -30,3 +30,9 @@ C:\Users\Norman\Desktop\EPIDAURO\feel_infile\Modelos\bin\Release\Modelos.pdb
 C:\Users\Norman\Desktop\EPIDAURO\feel_infile\Modelos\obj\Release\Modelos.csprojAssemblyReference.cache
 C:\Users\Norman\Desktop\EPIDAURO\feel_infile\Modelos\obj\Release\Modelos.dll
 C:\Users\Norman\Desktop\EPIDAURO\feel_infile\Modelos\obj\Release\Modelos.pdb
+C:\Users\Norman\Documents\PROYECTOS FEL 2020\feel_infile_g4s\Modelos\bin\Release\Modelos.dll
+C:\Users\Norman\Documents\PROYECTOS FEL 2020\feel_infile_g4s\Modelos\bin\Release\Modelos.pdb
+C:\Users\Norman\Documents\PROYECTOS FEL 2020\feel_infile_g4s\Modelos\obj\Release\Modelos.csproj.CoreCompileInputs.cache
+C:\Users\Norman\Documents\PROYECTOS FEL 2020\feel_infile_g4s\Modelos\obj\Release\Modelos.dll
+C:\Users\Norman\Documents\PROYECTOS FEL 2020\feel_infile_g4s\Modelos\obj\Release\Modelos.pdb
+C:\Users\Norman\Documents\PROYECTOS FEL 2020\feel_infile_g4s\Modelos\obj\Release\Modelos.csprojAssemblyReference.cache

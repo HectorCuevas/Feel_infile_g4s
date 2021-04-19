@@ -46,10 +46,12 @@
     <Compile Include="Certificacion.cs" />
     <Compile Include="Complemento.cs" />
     <Compile Include="Complementos.cs" />
+    <Compile Include="Conector.cs" />
     <Compile Include="ControlEmision.cs" />
     <Compile Include="DescripcionErrores.cs" />
     <Compile Include="Emisor.cs" />
     <Compile Include="DatosGenerales.cs" />
+    <Compile Include="Frases.cs" />
     <Compile Include="Impuesto.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="NotaCredito.cs" />
