@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
+using System.Text;
 using System.Xml.Linq;
 
 namespace FELFactura
@@ -428,11 +430,22 @@ namespace FELFactura
                         break;
                     }
             }
-            XDocument myXML = new XDocument(new XDeclaration("1.0", "UTF-8", "yes"), parameters);
+            XDocument myXML = new XDocument(new XDeclaration("1.0", "UTF-8", "no"), parameters);
+           // XDocument myXML = new XDocument(null, parameters);
             String res = myXML.ToString();
 
 
+            StringWriter writer = new Utf8StringWriter();
+            myXML.Save(writer, SaveOptions.None);
+            // Console.WriteLine(writer);
+             string s = writer.ToString();
+
             return res;
+        }
+
+        private class Utf8StringWriter : StringWriter
+        {
+            public override Encoding Encoding { get { return Encoding.UTF8; } }
         }
     }
 }

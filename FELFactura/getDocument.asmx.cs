@@ -2,8 +2,10 @@
 using System.Configuration;
 using System.Data;
 using System.IO;
+using System.Text;
 using System.Web.Services;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace FELFactura
 {
@@ -26,32 +28,24 @@ namespace FELFactura
             try
             {
                 string[] xmlDoc = new string[12];
-                string xmlGenerado = "";
+                string xmlGenerado = "";            
 
-                
-
-                String path = "";
-                
+                String path = "";             
                 XmlDocument doc = new XmlDocument();
-
-                // xmlDoc = xml.GET(xml_enc, xml_det, num_fac);   
-
 
                 xmlGenerado = xml.getXML(xml_enc, xml_det, xml_frases, num_fac);
 
-                // xmlDoc = xml.getUUID("01-FACT-997", "");
-
                 xmlDoc = xml.setDocument(Constants.IDENTIFICADOR_DTE, xmlGenerado);
-
-                //var cRespuesta = wsConnector.wsEnvio("POST_DOCUMENT_SAT", xmlDoc, "01-FACT-997", usuario, url, requestor, "SYSTEM_REQUEST", "GT", nit, false, "");
 
                 doc.PreserveWhitespace = true;
                 doc.LoadXml(xmlGenerado);
-
+      
                 path = ConfigurationManager.AppSettings["RutaArchivos"].ToString();
 
                 using (XmlTextWriter writer = new XmlTextWriter(path + Constants.TIPO_DOC + "-" + Constants.IDENTIFICADOR_DTE + ".xml", null))
                 {
+                    writer.WriteProcessingInstruction("xml", "version='1.0' encoding='UTF-8'");
+                   // writer.WriteStartElement("root");
                     writer.Formatting = System.Xml.Formatting.Indented;
                     doc.Save(writer);
                 }
@@ -107,7 +101,10 @@ namespace FELFactura
             return xmlArr;
         }
 
-
+        private class Utf8StringWriter : StringWriter
+        {
+            public override Encoding Encoding { get { return Encoding.UTF8; } }
+        }
         private DataSet setError(string ex)
         {
             DataSet dsError = new DataSet();
